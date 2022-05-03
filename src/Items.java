@@ -10,7 +10,8 @@ public class Items {
 	
 	public List<ItemStack> allItems = List.of(chorusCraftingTable(),chorusSword(),chorusPickaxe(),enderCarrot(),
 			endStoneSword(),endStonePickaxe(),shulkerPickaxe(),obsidianBoots(),obsidianChestplate(),obsidianCrossbow(),obsidianHelmet(),
-			obsidianLeggings(),purpurRocket(1),phantomCrystal(),silverfishSword(),witherPearl(),immortalSpellbook(),endermiteModel());
+			obsidianLeggings(),purpurRocket(1),phantomCrystal(),silverfishSword(),witherPearl(),immortalSpellbook(),endermiteModel(),goldenBucket(),
+			obsidianPickaxe(),obsidianSword(),soulHelmet(),soulChestplate(),soulLeggings(),soulBoots());
 	public ItemStack chorusCraftingTable() {
 		ItemStack item = new ItemStack(Material.CRAFTING_TABLE);
 		ItemMeta meta = item.getItemMeta();
@@ -186,6 +187,91 @@ public class Items {
 		lore.add("A projectile that breaks blocks where it lands,");
 		lore.add("then teleports the thrower to that location.");
 		meta.setLore(lore);
+		meta.setCustomModelData(1);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack goldenBucket() {
+		ItemStack item = new ItemStack(Material.COAL);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Golden Bucket");
+		ArrayList<String> lore = new ArrayList<>();
+		lore.add("Collects solid blocks instead of liquid.");
+		meta.setLore(lore);
+		meta.setCustomModelData(1);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack basaltBucket() {
+		ItemStack item = new ItemStack(Material.COAL);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Golden Bucket of Basalt");
+		meta.setCustomModelData(2);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack soulBucket() {
+		ItemStack item = new ItemStack(Material.COAL);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Golden Bucket of Soul Sand");
+		meta.setCustomModelData(3);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack netherBricksBucket() {
+		ItemStack item = new ItemStack(Material.COAL);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Golden Bucket of Nether Bricks");
+		meta.setCustomModelData(4);
+		item.setItemMeta(meta);
+		return item;
+	}
+	
+	public ItemStack obsidianSword() {
+		ItemStack item = new ItemStack(Material.IRON_SWORD);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Obsidian Sword");
+		meta.setCustomModelData(1);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack obsidianPickaxe() {
+		ItemStack item = new ItemStack(Material.IRON_PICKAXE);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Obsidian Pickaxe");
+		meta.setCustomModelData(1);
+		item.setItemMeta(meta);
+		return item;
+	}
+	
+	public ItemStack soulHelmet() {
+		ItemStack item = new ItemStack(Material.CHAINMAIL_HELMET);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Soul Helmet");
+		meta.setCustomModelData(1);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack soulChestplate() {
+		ItemStack item = new ItemStack(Material.CHAINMAIL_CHESTPLATE);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Soul Chestplate");
+		meta.setCustomModelData(1);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack soulLeggings() {
+		ItemStack item = new ItemStack(Material.CHAINMAIL_LEGGINGS);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Soul Leggings");
+		meta.setCustomModelData(1);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack soulBoots() {
+		ItemStack item = new ItemStack(Material.CHAINMAIL_BOOTS);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Soul Boots");
 		meta.setCustomModelData(1);
 		item.setItemMeta(meta);
 		return item;

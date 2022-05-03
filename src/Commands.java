@@ -5,13 +5,17 @@ import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPhantom;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class Commands implements CommandExecutor{
 
+	
+	EndermiteMob mob;
 	private Main plugin;
 	public Commands(Main plugin) {
 		this.plugin=plugin;
+		mob = new EndermiteMob(plugin);
 	}
 	Items item = new Items();
 	@Override
@@ -46,6 +50,9 @@ public class Commands implements CommandExecutor{
 						v.setProfession(null);
 						//v.setCustomNameVisible(true);
 					}
+					if(args[0].equals("endermite")) {
+						mob.spawnEndermite(p);
+					}
 				}
 			}
 			else if(label.equals("giveitem")) {
@@ -71,6 +78,11 @@ public class Commands implements CommandExecutor{
 				}
 				else if(args[0].equals("endercarrot")) {
 					p.getInventory().addItem(item.enderCarrot());
+				}
+				else if(args[0].equals("all")) {
+					for(ItemStack allItems : item.allItems) {
+						p.getInventory().addItem(allItems);
+					}
 				}
 			}
 		}

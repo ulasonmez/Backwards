@@ -16,8 +16,10 @@ public class Nether implements Listener{
 	@EventHandler
 	public void onBreak(BlockBreakEvent event) {
 		Player p = event.getPlayer();
-		if(plugin.netherStrongholdLocation.distance(p.getLocation())<=100) {
-			event.setCancelled(true);
+		if(p.getWorld().equals(plugin.netherStrongholdLocation.getWorld())) {
+			if(plugin.netherStrongholdLocation.distance(p.getLocation())<=100) {
+				event.setCancelled(true);
+			}
 		}
 	}
 	@EventHandler
