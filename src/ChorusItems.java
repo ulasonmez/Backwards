@@ -12,6 +12,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class ChorusItems implements Listener{
 
@@ -30,20 +31,24 @@ public class ChorusItems implements Listener{
 			p.getWorld().dropItemNaturally(event.getBlock().getLocation(), item.chorusCraftingTable());
 		}
 		if(plugin.hasItem(p, "main", item.chorusPickaxe())) {
-			p.sendMessage("oldu");
 			Location teleportLoc = chorusTeleport(p.getLocation());
-			if(teleportLoc != null) {
-				p.teleport(teleportLoc);
-				Particle.DustOptions dustOptions = new Particle.DustOptions(Color.PURPLE,1.0F);
-				p.getWorld().spawnParticle(Particle.REDSTONE, p.getLocation(),70,0.5,1,0.5,dustOptions);
-			}
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					if(teleportLoc != null) {
+						p.teleport(teleportLoc);
+						Particle.DustOptions dustOptions = new Particle.DustOptions(Color.PURPLE,1.0F);
+						p.getWorld().spawnParticle(Particle.REDSTONE, p.getLocation(),70,0.5,1,0.5,dustOptions);
+					}
+				}
+			}.runTaskLater(plugin, 2);
 		}
 	}
 	@EventHandler
 	public void onHit(EntityDamageByEntityEvent event) {
 		if(event.getDamager() instanceof Player) {
 			Player p = (Player)event.getDamager();
-			if(plugin.hasItem(p, "main", item.chorusPickaxe())) {
+			if(plugin.hasItem(p, "main", item.chorusSword())) {
 				Location teleportLoc = chorusTeleport(p.getLocation());
 				if(teleportLoc != null) {
 					p.teleport(teleportLoc);

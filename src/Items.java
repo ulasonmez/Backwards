@@ -10,11 +10,12 @@ public class Items {
 	
 	public List<ItemStack> allItems = List.of(chorusCraftingTable(),chorusSword(),chorusPickaxe(),enderCarrot(),
 			endStoneSword(),endStonePickaxe(),shulkerPickaxe(),obsidianBoots(),obsidianChestplate(),obsidianCrossbow(),obsidianHelmet(),
-			obsidianLeggings(),purpurRocket(1),phantomCrystal(),silverfishSword(),witherPearl(),immortalSpellbook(),endermiteModel(),goldenBucket(),
-			obsidianPickaxe(),obsidianSword(),soulHelmet(),soulChestplate(),soulLeggings(),soulBoots());
+			obsidianLeggings(),purpurRocket(6),phantomCrystal(),silverfishSword(),witherPearl(),immortalSpellbook(),endermiteModel(),goldenBucket(),
+			obsidianPickaxe(),obsidianSword(),soulHelmet(),soulChestplate(),soulLeggings(),soulBoots(),volcanoLauncher(),basaltPortal());
 	public ItemStack chorusCraftingTable() {
 		ItemStack item = new ItemStack(Material.CRAFTING_TABLE);
 		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Chorus Crafting Table");
 		meta.setCustomModelData(1);
 		item.setItemMeta(meta);
 		return item;
@@ -45,6 +46,7 @@ public class Items {
 		ItemStack item = new ItemStack(Material.CARROT);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Ender Carrot");
+		meta.setCustomModelData(1);
 		item.setItemMeta(meta);
 		return item;
 	}
@@ -273,6 +275,142 @@ public class Items {
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Soul Boots");
 		meta.setCustomModelData(1);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack volcanoLauncher() {
+		ItemStack item = new ItemStack(Material.PAPER);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Volcano Launcher");
+		ArrayList<String> lore = new ArrayList<>();
+		lore.add("Shoots projectiles that spawn a");
+		lore.add("miniature volcano where they land.");
+		meta.setLore(lore);
+		meta.setCustomModelData(2);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack basaltPortal() {
+		ItemStack item = new ItemStack(Material.PAPER);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Basalt Portal");
+		ArrayList<String> lore = new ArrayList<>();
+		lore.add("When placed and lit with a volcanic eruption,");
+		lore.add("creates a portal to the Overworld.");
+		meta.setLore(lore);
+		meta.setCustomModelData(3);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack basaltPortalOpen() {
+		ItemStack item = new ItemStack(Material.PAPER);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Basalt Portal Open");
+		ArrayList<String> lore = new ArrayList<>();
+		lore.add("When placed and lit with a volcanic eruption,");
+		lore.add("creates a portal to the Overworld.");
+		meta.setLore(lore);
+		meta.setCustomModelData(4);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack miniatureVolcano() {
+		ItemStack item = new ItemStack(Material.PAPER);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Miniature Volcano");
+		meta.setCustomModelData(5);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack mineshaftDrill() {
+		ItemStack item = new ItemStack(Material.PAPER);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Mineshaft Drill");
+		ArrayList<String> lore = new ArrayList<>();
+		lore.add("Creates a long tunnel with support beams");
+		lore.add("Collects any discovered loot into chests.");
+		meta.setLore(lore);
+		meta.setCustomModelData(6);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack upsideDownHouse() {
+		ItemStack item = new ItemStack(Material.PAPER);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Upside-Down House");
+		ArrayList<String> lore = new ArrayList<>();
+		lore.add("When placed, generates a house");
+		lore.add("with an Upside-Down Village, who will");
+		lore.add("trade you Emerald Ingots.");
+		meta.setLore(lore);
+		meta.setCustomModelData(7);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack emeraldIngot() {
+		ItemStack item = new ItemStack(Material.DIAMOND);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Emerald Ingot");
+		meta.setCustomModelData(2);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack diamondIngot() {
+		ItemStack item = new ItemStack(Material.DIAMOND);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Diamond Ingot");
+		meta.setCustomModelData(1);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack wardenEar() {
+		ItemStack item = new ItemStack(Material.COAL);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Warden Ear");
+		meta.setCustomModelData(5);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack villagerNose() {
+		ItemStack item = new ItemStack(Material.COAL);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Villager Nose");
+		meta.setCustomModelData(6);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack sculkSeeker() {
+		ItemStack item = new ItemStack(Material.NAUTILUS_SHELL);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Sculk Seeker");
+		ArrayList<String> lore = new ArrayList<>();
+		lore.add("Right lick to emit a sound that");
+		lore.add("points towards the world origin.");
+		meta.setLore(lore);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack greatFertilizer() {
+		ItemStack item = new ItemStack(Material.PAPER);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Great Fertilizer");
+		ArrayList<String> lore = new ArrayList<>();
+		lore.add("Used on the Great Oak Sapling at the world origin");
+		lore.add("to grow a Great Oak Tree.");
+		meta.setLore(lore);
+		meta.setCustomModelData(9);
+		item.setItemMeta(meta);
+		return item;
+	}
+	public ItemStack woodChipper() {
+		ItemStack item = new ItemStack(Material.PAPER);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("Diamond Wood Chipper");
+		ArrayList<String> lore = new ArrayList<>();
+		lore.add("The only way to collect");
+		lore.add("wood from the surface.");
+		meta.setLore(lore);
+		meta.setCustomModelData(10);
 		item.setItemMeta(meta);
 		return item;
 	}

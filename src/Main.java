@@ -1,7 +1,11 @@
+import java.io.File;
+import java.io.FilenameFilter;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,25 +15,50 @@ import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class Main extends JavaPlugin implements Listener{
-	
+
 	Items item = new Items();
-	Location netherStrongholdLocation = null, netherPortalLocation = null;
+	Location netherStrongholdLocation = null, netherPortalLocation = null,overWorldSpawnLocation = null,bigTreeLocation = null,
+			endSpawnLocation = null;
+
+
+	File MainDir = getDataFolder().toPath().toFile();
+	File SchemDir = getDataFolder().toPath().resolve("schems").toFile();
+	File[] schematics;
 	@Override
 	public void onEnable() {
-		netherStrongholdLocation = new Location(Bukkit.getWorlds().get(1),0,0,0);
-		netherPortalLocation = new Location(Bukkit.getWorlds().get(1),0,0,0);
-		
-		
+		if (!this.MainDir.exists())
+			this.MainDir.mkdir(); 
+		if (!this.SchemDir.exists())
+			this.SchemDir.mkdir(); 
+		this.schematics = this.SchemDir.listFiles(new FilenameFilter() {
+			public boolean accept(File f, String name) {
+				return (name.endsWith(".schematic") || name.endsWith(".schem"));
+			}
+		});
+
+
+		///////////locations
+		netherStrongholdLocation = new Location(Bukkit.getWorlds().get(1),210,97,15);
+		netherPortalLocation = new Location(Bukkit.getWorlds().get(1),140,46,-66);
+		overWorldSpawnLocation = new Location(Bukkit.getWorlds().get(0),-132,33,-532);
+		bigTreeLocation = new Location(Bukkit.getWorlds().get(0),123,71,-46);
+		endSpawnLocation = new Location(Bukkit.getWorlds().get(2),-1047,59,-955);
+
 		this.chorusCraftingTable();this.chorusPickaxe();this.chorusSword();this.obsidianChestplate();
 		this.endStonePickaxe();this.endStoneSword();this.obsidianBoots();this.obsidianCrossbow();
 		this.obsidianHelmet();this.obsidianLeggings();this.phantomCrystal();this.purpurRocket();
-		this.shulkerPickaxe();this.silverfishSword();this.goldenBucket();obsidianSword();
-		obsidianPickaxe();
-		
+		this.shulkerPickaxe();this.silverfishSword();this.goldenBucket();this.obsidianSword();
+		this.obsidianPickaxe();this.volcanoLauncher();this.basaltPortal();this.immortalSpellBook();
+		this.soulBoots();this.soulChestplate();this.soulHelmet();this.soulLeggings();
+		this.woodChipper();this.mineshaftDrill();this.sculkSeeker();this.upsideDownHouse();
+		this.greatFertilizer();
+
 		getServer().getPluginManager().registerEvents(this, this);
 		getServer().getPluginManager().registerEvents(new ChorusItems(this), this);
+		getServer().getPluginManager().registerEvents(new ShulkerItems(this), this);
 		getServer().getPluginManager().registerEvents(new Craftings(this), this);
 		getServer().getPluginManager().registerEvents(new PhantomCrystal(this), this);
 		getServer().getPluginManager().registerEvents(new SilverfishSword(this), this);
@@ -41,20 +70,29 @@ public class Main extends JavaPlugin implements Listener{
 		getServer().getPluginManager().registerEvents(new ImmortalSpellBook(this), this);
 		getServer().getPluginManager().registerEvents(new GoldenBucket(this), this);
 		getServer().getPluginManager().registerEvents(new SoulArmor(this), this);
+		getServer().getPluginManager().registerEvents(new VolcanoLauncher(this), this);
+		getServer().getPluginManager().registerEvents(new MineshaftDrill(this), this);
+		getServer().getPluginManager().registerEvents(new UpsideDownHouse(this), this);
+		getServer().getPluginManager().registerEvents(new SculkSeeker(this), this);
+		getServer().getPluginManager().registerEvents(new GreatFertilizer(this), this);
+		getServer().getPluginManager().registerEvents(new DiamondWoodChipper(this), this);
+		getServer().getPluginManager().registerEvents(new EndBiome(this), this);
 		getCommand("spawn").setExecutor(new Commands(this));
 		getCommand("giveitem").setExecutor(new Commands(this));
+		getCommand("startlocation").setExecutor(new Commands(this));
+		placeSapling();
 	}
-	
-	@EventHandler
-	public void onJoin(PlayerJoinEvent event) {
-		Player p = event.getPlayer();
-		for(NamespacedKey key : keys) {
-			if(key!=null) {
-				p.discoverRecipe(key);
+	public void placeSapling() {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				if(!bigTreeLocation.getBlock().getType().equals(Material.OAK_SAPLING)) {
+					bigTreeLocation.getBlock().setType(Material.OAK_SAPLING);
+					addToLoc(bigTreeLocation,0,1,0).getBlock().setType(Material.BARRIER);
+				}
 			}
-		}
+		}.runTaskTimer(this, 0, 40);
 	}
-	
 	public Location addToLoc(Location loc, double x, double y, double z) {
 		return new Location(loc.getWorld(), loc.getX()+x, loc.getY()+y, loc.getZ()+z);
 	}
@@ -96,11 +134,31 @@ public class Main extends JavaPlugin implements Listener{
 		if(count == 4) return true;
 		return false;
 	}
-	
+	public boolean hasHelmet(ArmorStand stand, ItemStack helmet) {
+		if(stand.getEquipment().getHelmet()!=null) {
+			if(stand.getEquipment().getHelmet().getItemMeta()!=null) {
+				if(stand.getEquipment().getHelmet().getItemMeta().getDisplayName().equals(helmet.getItemMeta().getDisplayName())) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	////////////////////////////////////////////////////////
-	NamespacedKey a,b,c,d,e,f,g,h,j,k,l,m,n,o,w,x,y,z,q,aa,bb,cc,dd;
+	@EventHandler
+	public void onJoin(PlayerJoinEvent event) {
+		Player p = event.getPlayer();
+		p.discoverRecipe(a);p.discoverRecipe(b);p.discoverRecipe(c);p.discoverRecipe(d);p.discoverRecipe(e);p.discoverRecipe(f);p.discoverRecipe(g);
+		p.discoverRecipe(h);p.discoverRecipe(j);p.discoverRecipe(k);p.discoverRecipe(l);p.discoverRecipe(m);p.discoverRecipe(n);p.discoverRecipe(o);
+		p.discoverRecipe(w);p.discoverRecipe(x);p.discoverRecipe(y);p.discoverRecipe(z);p.discoverRecipe(aa);p.discoverRecipe(bb);
+		p.discoverRecipe(cc);p.discoverRecipe(dd);p.discoverRecipe(ee);p.discoverRecipe(ff);p.discoverRecipe(gg);p.discoverRecipe(hh);
+		p.discoverRecipe(jj);p.discoverRecipe(kk);p.discoverRecipe(ll);
+		p.setBedSpawnLocation(endSpawnLocation);
+	}
+
+	NamespacedKey a,b,c,d,e,f,g,h,j,k,l,m,n,o,w,x,y,z,aa,bb,cc,dd,ee,ff,gg,hh,
+	jj,kk,ll;
 	//List<NamespacedKey> keys = List.of(a,b,c,d,e,f,g,h,j,k,l,m,n,o,w,x,y,z);
-	NamespacedKey[] keys = {a,b,c,d,e,f,g,h,j,k,l,m,n,o,w};
 	public void chorusPickaxe() {
 		ItemStack result = item.chorusPickaxe();
 		this.a = new NamespacedKey(this, "a");
@@ -120,13 +178,10 @@ public class Main extends JavaPlugin implements Listener{
 		Bukkit.addRecipe(recipe);
 	}
 	public void chorusCraftingTable() {
-		ItemStack result = item.chorusSword();
+		ItemStack result = item.chorusCraftingTable();
 		this.c = new NamespacedKey(this, "c");
 		ShapelessRecipe recipe = new ShapelessRecipe(c, result);
-		recipe.addIngredient(Material.CHORUS_FRUIT);
-		recipe.addIngredient(Material.CHORUS_FRUIT);
-		recipe.addIngredient(Material.CHORUS_FRUIT);
-		recipe.addIngredient(Material.CHORUS_FRUIT);
+		recipe.addIngredient(4,Material.CHORUS_FLOWER);
 		Bukkit.addRecipe(recipe);
 	}
 	public void endStonePickaxe() {
@@ -230,6 +285,7 @@ public class Main extends JavaPlugin implements Listener{
 		recipe.setIngredient('E',Material.END_ROD);
 		Bukkit.addRecipe(recipe);
 	}
+
 	public void silverfishSword() {
 		ItemStack result = item.silverfishSword();
 		this.w = new NamespacedKey(this, "w");
@@ -265,7 +321,7 @@ public class Main extends JavaPlugin implements Listener{
 		recipe.setIngredient('N',Material.OBSIDIAN);
 		Bukkit.addRecipe(recipe);
 	}
-	
+
 	public void soulHelmet() {
 		ItemStack result = item.soulHelmet();
 		this.aa = new NamespacedKey(this, "aa");
@@ -304,6 +360,84 @@ public class Main extends JavaPlugin implements Listener{
 		recipe.shape("   ","O O","S S");
 		recipe.setIngredient('O',Material.OBSIDIAN);
 		recipe.setIngredient('S',usedItem);
+		Bukkit.addRecipe(recipe);
+	}
+	public void volcanoLauncher() {
+		ItemStack result = item.volcanoLauncher();
+		this.ee = new NamespacedKey(this, "ee");
+		RecipeChoice usedItem = new RecipeChoice.ExactChoice(item.netherBricksBucket());
+		ShapedRecipe recipe = new ShapedRecipe(ee, result);
+		recipe.shape(" BN","BMB"," S ");
+		recipe.setIngredient('B',Material.BLACKSTONE);
+		recipe.setIngredient('S',Material.BASALT);
+		recipe.setIngredient('M',Material.MAGMA_BLOCK);
+		recipe.setIngredient('N',usedItem);
+		Bukkit.addRecipe(recipe);
+	}
+	public void basaltPortal() {
+		ItemStack result = item.basaltPortal();
+		this.ff = new NamespacedKey(this, "ff");
+		ShapedRecipe recipe = new ShapedRecipe(ff, result);
+		recipe.shape("G G","B B","BBB");
+		recipe.setIngredient('B',Material.BLACKSTONE);
+		recipe.setIngredient('G',Material.GOLD_INGOT);
+		Bukkit.addRecipe(recipe);
+	}
+	public void woodChipper() {
+		ItemStack result = item.woodChipper();
+		this.gg = new NamespacedKey(this, "gg");
+		RecipeChoice usedItem = new RecipeChoice.ExactChoice(item.diamondIngot());
+		ShapedRecipe recipe = new ShapedRecipe(gg, result);
+		recipe.shape(" ID","DDD"," I ");
+		recipe.setIngredient('I',Material.IRON_INGOT);
+		recipe.setIngredient('D',usedItem);
+		Bukkit.addRecipe(recipe);
+	}
+	public void mineshaftDrill() {
+		ItemStack result = item.mineshaftDrill();
+		this.hh = new NamespacedKey(this, "hh");
+		ShapedRecipe recipe = new ShapedRecipe(hh, result);
+		recipe.shape("  C","DSS","SSS");
+		recipe.setIngredient('C',Material.CHEST);
+		recipe.setIngredient('D',Material.DIAMOND);
+		recipe.setIngredient('S',Material.COBBLED_DEEPSLATE);
+		Bukkit.addRecipe(recipe);
+	}
+	public void sculkSeeker() {
+		ItemStack result = item.sculkSeeker();
+		this.jj = new NamespacedKey(this, "jj");
+		RecipeChoice emeraldIngot = new RecipeChoice.ExactChoice(item.emeraldIngot());
+		RecipeChoice wardenEar = new RecipeChoice.ExactChoice(item.wardenEar());
+		ShapedRecipe recipe = new ShapedRecipe(jj,result);
+		recipe.shape("WEW","EWE","WEW");
+		recipe.setIngredient('W',wardenEar);
+		recipe.setIngredient('E',emeraldIngot);
+		Bukkit.addRecipe(recipe);
+	}
+	public void upsideDownHouse() {
+		ItemStack result = item.upsideDownHouse();
+		this.kk = new NamespacedKey(this, "kk");
+		RecipeChoice usedItem = new RecipeChoice.ExactChoice(item.villagerNose());
+		ShapedRecipe recipe = new ShapedRecipe(kk,result);
+		recipe.shape("CCC","WVW"," W ");
+		recipe.setIngredient('W',Material.OAK_PLANKS);
+		recipe.setIngredient('V',usedItem);
+		recipe.setIngredient('C',Material.COBBLESTONE);
+		Bukkit.addRecipe(recipe);
+	}
+	public void greatFertilizer() {
+		ItemStack result = item.greatFertilizer();
+		this.ll = new NamespacedKey(this, "ll");
+		RecipeChoice wardenEar = new RecipeChoice.ExactChoice(item.wardenEar());
+		RecipeChoice enderCarrot = new RecipeChoice.ExactChoice(item.enderCarrot());
+		ShapedRecipe recipe = new ShapedRecipe(ll,result);
+		recipe.shape("WER","RBB","OOL");
+		recipe.setIngredient('W',wardenEar);
+		recipe.setIngredient('E',enderCarrot);
+		recipe.setIngredient('R',Material.ROTTEN_FLESH);
+		recipe.setIngredient('B',Material.BONE);
+		recipe.setIngredient('O',Material.OAK_SAPLING);
+		recipe.setIngredient('L',Material.OAK_LOG);
 		Bukkit.addRecipe(recipe);
 	}
 }

@@ -1,8 +1,8 @@
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPhantom;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Phantom;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.inventory.ItemStack;
@@ -26,8 +26,8 @@ public class Commands implements CommandExecutor{
 				if(args.length==2) {
 					if(args[0].equals("phantom")) {
 						int num = Integer.parseInt(args[1]);
-						for(int i = 0; i<=num;i++) {
-							CraftPhantom cp = (CraftPhantom)p.getWorld().spawnEntity(p.getLocation(), EntityType.PHANTOM);
+						for(int i = 0; i<num;i++) {
+							Phantom cp = (Phantom)p.getWorld().spawnEntity(p.getLocation(), EntityType.PHANTOM);
 							new BukkitRunnable() {
 								int count = 0;
 								@Override
@@ -55,6 +55,9 @@ public class Commands implements CommandExecutor{
 					}
 				}
 			}
+			else if(label.equals("startlocation")) {
+				p.teleport(plugin.endSpawnLocation);
+			}
 			else if(label.equals("giveitem")) {
 				if(args[0].equals("crystal")) {
 					if(args.length==2) {
@@ -70,6 +73,9 @@ public class Commands implements CommandExecutor{
 				else if(args[0].equals("silverfishsword")) {
 					p.getInventory().addItem(item.silverfishSword());
 				}
+				else if(args[0].equals("purpurrocket")) {
+					p.getInventory().addItem(item.purpurRocket(6));
+				}
 				else if(args[0].equals("witherpearl")) {
 					p.getInventory().addItem(item.witherPearl());
 				}
@@ -78,6 +84,39 @@ public class Commands implements CommandExecutor{
 				}
 				else if(args[0].equals("endercarrot")) {
 					p.getInventory().addItem(item.enderCarrot());
+				}
+				else if(args[0].equals("volcanolauncher")) {
+					p.getInventory().addItem(item.volcanoLauncher());
+				}
+				else if(args[0].equals("basaltportal")) {
+					p.getInventory().addItem(item.basaltPortal());
+				}
+				else if(args[0].equals("mineshaftdrill")) {
+					p.getInventory().addItem(item.mineshaftDrill());
+				}
+				else if(args[0].equals("upsidedownhouse")) {
+					p.getInventory().addItem(item.upsideDownHouse());
+				}
+				else if(args[0].equals("sculkseeker")) {
+					p.getInventory().addItem(item.sculkSeeker());
+				}
+				else if(args[0].equals("greatfertilizer")) {
+					p.getInventory().addItem(item.greatFertilizer());
+				}
+				else if(args[0].contains("chipper")) {
+					p.getInventory().addItem(item.woodChipper());
+				}
+				else if(args[0].contains("wardenear")) {
+					p.getInventory().addItem(item.wardenEar());
+				}
+				else if(args[0].contains("villagernose")) {
+					p.getInventory().addItem(item.villagerNose());
+				}
+				else if(args[0].contains("diamondingot")) {
+					p.getInventory().addItem(item.diamondIngot());
+				}
+				else if(args[0].contains("emeraldingot")) {
+					p.getInventory().addItem(item.emeraldIngot());
 				}
 				else if(args[0].equals("all")) {
 					for(ItemStack allItems : item.allItems) {

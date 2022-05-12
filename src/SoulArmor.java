@@ -30,7 +30,6 @@ public class SoulArmor implements Listener{
 	public void onWalk(PlayerMoveEvent event) {
 		Player p = event.getPlayer();
 		if(plugin.hasArmor(p, item.soulHelmet(), item.soulChestplate(), item.soulLeggings(), item.soulBoots())) {
-			//p.getWorld().spawnParticle(Particle.SOUL, p.getLocation(), 5, 0, 0, 0);
 			p.getWorld().spawnParticle(Particle.SOUL,p.getLocation(),5,1,1,1);	
 		}
 	}

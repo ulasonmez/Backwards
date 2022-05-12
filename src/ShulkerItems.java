@@ -42,7 +42,7 @@ public class ShulkerItems implements Listener{
 						for(int z = -0 ; z<=depth;z++) {
 							Location loc2 = loc.clone();
 							loc2.add(x, y, z);
-							p.getWorld().spawnParticle(Particle.CLOUD, loc2,30,0.5,0.5,0.5);
+							p.getWorld().spawnParticle(Particle.CLOUD, loc2,5,0.5,0.5,0.5);
 							e.getPlayer().getWorld().getBlockAt(loc2).breakNaturally(new ItemStack(Material.NETHERITE_PICKAXE));
 						}
 					}
@@ -54,7 +54,7 @@ public class ShulkerItems implements Listener{
 						for(int z = 0 ; z>=-depth;z--) {
 							Location loc2 = loc.clone();
 							loc2.add(x, y, z);
-							p.getWorld().spawnParticle(Particle.CLOUD, loc2,30,0.5,0.5,0.5);
+							p.getWorld().spawnParticle(Particle.CLOUD, loc2,5,0.5,0.5,0.5);
 							e.getPlayer().getWorld().getBlockAt(loc2).breakNaturally(new ItemStack(Material.NETHERITE_PICKAXE));
 						}
 					}
@@ -66,7 +66,7 @@ public class ShulkerItems implements Listener{
 						for(int x = 0 ; x>=-depth;x--) {
 							Location loc2 = loc.clone();
 							loc2.add(x, y, z);
-							p.getWorld().spawnParticle(Particle.CLOUD, loc2,30,0.5,0.5,0.5);
+							p.getWorld().spawnParticle(Particle.CLOUD, loc2,5,0.5,0.5,0.5);
 							e.getPlayer().getWorld().getBlockAt(loc2).breakNaturally(new ItemStack(Material.NETHERITE_PICKAXE));
 						}
 					}
@@ -78,7 +78,7 @@ public class ShulkerItems implements Listener{
 						for(int x = -0 ; x<=depth;x++) {
 							Location loc2 = loc.clone();
 							loc2.add(x, y, z);
-							p.getWorld().spawnParticle(Particle.CLOUD, loc2,30,0.5,0.5,0.5);
+							p.getWorld().spawnParticle(Particle.CLOUD, loc2,5,0.5,0.5,0.5);
 							e.getPlayer().getWorld().getBlockAt(loc2).breakNaturally(new ItemStack(Material.NETHERITE_PICKAXE));
 						}
 					}
@@ -90,7 +90,7 @@ public class ShulkerItems implements Listener{
 						for(int y = 0; y>=-depth;y--) {
 							Location loc2 = loc.clone();
 							loc2.add(x, y, z);
-							p.getWorld().spawnParticle(Particle.CLOUD, loc2,30,0.5,0.5,0.5);
+							p.getWorld().spawnParticle(Particle.CLOUD, loc2,5,0.5,0.5,0.5);
 							e.getPlayer().getWorld().getBlockAt(loc2).breakNaturally(new ItemStack(Material.NETHERITE_PICKAXE));
 						}
 					}
@@ -102,7 +102,7 @@ public class ShulkerItems implements Listener{
 						for(int y = -0; y<=depth;y++) {
 							Location loc2 = loc.clone();
 							loc2.add(x, y, z);
-							p.getWorld().spawnParticle(Particle.CLOUD, loc2,30,0.5,0.5,0.5);
+							p.getWorld().spawnParticle(Particle.CLOUD, loc2,5,0.5,0.5,0.5);
 							e.getPlayer().getWorld().getBlockAt(loc2).breakNaturally(new ItemStack(Material.NETHERITE_PICKAXE));
 						}
 					}

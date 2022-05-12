@@ -97,7 +97,7 @@ public class PhantomCrystal implements Listener{
 		}
 	}
 	public void fillPortal() {
-		Location loc = new Location(Bukkit.getWorlds().get(2),0,62,0);
+		Location loc = new Location(Bukkit.getWorlds().get(2),0,60,0);
 		for(int x = -10;x<=10;x++) {
 			for(int z = -10;z<=10;z++) {
 				if(plugin.addToLoc(loc, x, -1, z).getBlock().getType().equals(Material.BEDROCK)) {

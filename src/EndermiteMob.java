@@ -36,6 +36,9 @@ public class EndermiteMob implements Listener{
 			@Override
 			public void run() {
 				Location zombLoc = zomb.getLocation(),pLoc = p.getLocation();
+				if(!zombLoc.getWorld().equals(pLoc.getWorld())) {
+					zomb.teleport(pLoc);
+				}
 				if(zombLoc.distance(pLoc) >= 30) {
 					zomb.teleport(p);
 				}
@@ -82,10 +85,9 @@ public class EndermiteMob implements Listener{
 					this.cancel();
 				}
 				Particle.DustOptions dustOptions = new Particle.DustOptions(Color.PURPLE,1.0F);
-				endermite.getWorld().spawnParticle(Particle.REDSTONE, pLoc,50,0.0,0.0,0.0,dustOptions);
+				endermite.getWorld().spawnParticle(Particle.REDSTONE, pLoc,10,0.0,0.0,0.0,dustOptions);
 
 				pLoc.subtract(pLoc);
-
 			}
 		}.runTaskTimer(plugin, 0, 1);
 	}

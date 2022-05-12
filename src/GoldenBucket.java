@@ -23,12 +23,15 @@ public class GoldenBucket implements Listener{
 		Material mat = event.getClickedBlock().getType();
 		if(plugin.hasItem(p, "main", item.goldenBucket())) {
 			if(mat.equals(Material.BASALT)) {
+				event.getClickedBlock().setType(Material.AIR);
 				playerCollectedBlock(p, item.basaltBucket());
 			}
 			else if(mat.equals(Material.SOUL_SAND)) {
+				event.getClickedBlock().setType(Material.AIR);
 				playerCollectedBlock(p, item.soulBucket());
 			}
 			if(mat.equals(Material.NETHER_BRICKS)) {
+				event.getClickedBlock().setType(Material.AIR);
 				playerCollectedBlock(p, item.netherBricksBucket());
 			}
 		}
